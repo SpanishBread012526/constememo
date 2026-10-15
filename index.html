@@ -550,7 +550,7 @@ onAuthStateChanged(auth, user => {
     $("logoutBtn").hidden = false;
     setStatus("Signed in as owner. Your memories sync with Firebase.");
   } else {
-    $("addBtn").hidden = true;
+   $("addBtn").hidden = false;
     $("loginBtn").hidden = false;
     $("logoutBtn").hidden = true;
     setStatus("Viewing shared memories.");
