@@ -527,7 +527,7 @@ $("loginForm").addEventListener("submit", async event => {
     $("password").value = "";
   } catch (error) {
     console.error(error);
-    alert("Sign-in failed. Check your email and password, and make sure Email/Password sign-in is enabled in Firebase.");
+   alert("Firebase error: " + error.code + "\n" + error.message);
   }
 });
 
