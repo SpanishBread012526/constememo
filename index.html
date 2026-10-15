@@ -315,10 +315,10 @@ function makeButton(text, callback) {
 }
 
 function openEditor(memory = null) {
-  if (!isOwner()) {
-    setStatus("Sign in with the owner account to edit memories.");
-    return;
-  }
+  if (memory && !isOwner()) {
+  setStatus("Only the owner can edit existing memories.");
+  return;
+}
 
   $("memoryForm").reset();
   pendingPhoto = null;
