@@ -4,524 +4,577 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Memo-Cons</title>
+<title>Memory Constellation ✦</title>
 <style>
 :root {
-  --bg: #080b18;
-  --panel: #101528;
-  --text: #f0efff;
-  --muted: #929bb9;
-  --accent: #b9a7ff;
-  --border: #252c48;
+  --bg: #090817;
+  --panel: #17142b;
+  --purple: #b9a0ff;
+  --muted: #aaa4c6;
+  --text: #f5f0ff;
 }
 * { box-sizing: border-box; }
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
   min-height: 100vh;
-}
-button, input, textarea, select { font: inherit; }
-button { cursor: pointer; }
-button:focus-visible, input:focus-visible,
-textarea:focus-visible, select:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 3px;
+  background: radial-gradient(ellipse at top, #242047 0%, var(--bg) 65%);
+  color: var(--text);
+  font-family: "Trebuchet MS", sans-serif;
 }
 header {
-  padding: 25px 6%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 15px;
-  border-bottom: 1px solid #ffffff0c;
+  padding: 24px 18px;
+  text-align: center;
 }
-.brand { display: flex; gap: 12px; align-items: center; }
-.logo { color: var(--accent); font-size: 27px; }
-h1 { font-size: 17px; letter-spacing: 1px; margin: 0; }
-.subtitle { font-size: 12px; color: var(--muted); margin-top: 5px; }
+h1 {
+  margin: 0;
+  color: #d6c5ff;
+  font-size: clamp(26px, 5vw, 42px);
+  letter-spacing: 1px;
+}
+header p { color: var(--muted); }
+button, input, textarea, select { font: inherit; }
 button {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px 14px;
-  background: #171d34;
+  border: 1px solid #63538f;
+  background: #292044;
   color: var(--text);
-  transition: .2s;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
 }
-button:hover { border-color: var(--accent); transform: translateY(-1px); }
-.primary { background: var(--accent); color: #151126; border: 0; font-weight: 700; }
-main { max-width: 1300px; margin: auto; padding: 35px 5%; }
-.intro { margin-bottom: 24px; }
-.eyebrow {
-  color: var(--accent); text-transform: uppercase;
-  font-size: 10px; letter-spacing: 3px;
-}
-h2 { font-size: clamp(25px, 4vw, 38px); font-weight: 500; margin: 10px 0; }
-.intro p { color: var(--muted); font-size: 14px; line-height: 1.7; }
-.workspace {
-  display: grid;
-  grid-template-columns: minmax(0, 1.7fr) minmax(270px, .8fr);
-  gap: 18px;
-}
-.panel {
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 17px;
-  overflow: hidden;
-}
-.panel-head {
-  padding: 17px 19px;
-  border-bottom: 1px solid var(--border);
+button:hover { background: #413260; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+.top-actions {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 10px;
+  margin: 15px auto;
 }
-.panel-head h3 { font-size: 12px; letter-spacing: 1px; margin: 0; }
-.count { color: var(--muted); font-size: 11px; }
-.sky {
-  height: 440px;
+#status {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  padding: 0 12px;
+}
+#sky {
   position: relative;
+  margin: 22px auto;
+  width: min(1100px, 94%);
+  height: 540px;
   overflow: hidden;
-  isolation: isolate;
+  border: 1px solid #38305c;
+  border-radius: 20px;
   background:
-    radial-gradient(ellipse at 48% 50%, #29244955, transparent 55%),
-    radial-gradient(ellipse at 20% 20%, #18294a55, transparent 60%),
-    #090d1d;
-  touch-action: manipulation;
+    radial-gradient(circle at 20% 25%, #ffffff75 1px, transparent 2px),
+    radial-gradient(circle at 80% 70%, #d9c6ff75 1px, transparent 2px),
+    radial-gradient(circle at 60% 15%, #ffffff70 1px, transparent 2px),
+    linear-gradient(145deg, #17142f, #090817 75%);
+  background-size: 95px 100px, 130px 120px, 150px 130px, auto;
 }
-.sky::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  opacity: .7;
-  background-image:
-    radial-gradient(1px 1px at 15% 20%, white 98%, transparent),
-    radial-gradient(1px 1px at 80% 15%, white 98%, transparent),
-    radial-gradient(2px 2px at 65% 75%, #aaa4ff 98%, transparent),
-    radial-gradient(1px 1px at 30% 80%, white 98%, transparent),
-    radial-gradient(1px 1px at 50% 40%, white 98%, transparent),
-    radial-gradient(1px 1px at 90% 65%, white 98%, transparent),
-    radial-gradient(1px 1px at 10% 60%, white 98%, transparent);
-  background-size: 170px 150px, 210px 190px, 250px 210px,
-    180px 170px, 130px 140px, 220px 180px, 190px 190px;
-}
-#lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.link { stroke: #9d91ff; stroke-opacity: .26; stroke-width: 1; }
 .star {
   position: absolute;
-  width: 34px;
-  height: 34px;
+  transform: translate(-50%, -50%);
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
   border: 0;
   padding: 0;
-  border-radius: 50%;
-  background: transparent;
-  transform: translate(-50%, -50%);
-  display: grid;
-  place-items: center;
+  background: #d9c8ff;
+  box-shadow: 0 0 9px 3px #a68aff80;
 }
-.star::before {
+.star:hover { transform: translate(-50%, -50%) scale(1.5); }
+.star::after {
   content: "";
-  width: var(--size, 8px);
-  height: var(--size, 8px);
-  background: var(--color, #c5bcff);
+  position: absolute;
+  inset: -8px;
   border-radius: 50%;
-  box-shadow: 0 0 8px 2px var(--color, #c5bcff),
-              0 0 22px var(--color, #c5bcff);
-  transition: .2s;
-}
-.star:hover::before, .star.selected::before {
-  transform: scale(1.6);
-  box-shadow: 0 0 12px 4px var(--color), 0 0 35px var(--color);
+  border: 1px solid #c6b3ff50;
 }
 .star-label {
   position: absolute;
-  top: 29px;
+  transform: translate(-50%, 12px);
+  font-size: 11px;
   white-space: nowrap;
-  font-size: 10px;
-  color: #c3c8df;
+  color: #e2d8ff;
   pointer-events: none;
-  max-width: 110px;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-shadow: 0 1px 5px #000;
 }
-.sky-note {
-  position: absolute; bottom: 14px; left: 16px;
-  font-size: 10px; color: #7f89aa; pointer-events: none;
+.empty {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 25px;
+  color: var(--muted);
 }
-.detail { padding: 23px; min-height: 250px; }
-.detail-empty { color: var(--muted); font-size: 13px; line-height: 1.8; }
-.memory-symbol { font-size: 26px; color: var(--accent); }
-.tag {
-  display: inline-block; border: 1px solid var(--border);
-  border-radius: 20px; padding: 5px 9px;
-  color: #c3b6ff; font-size: 10px;
+#memory-list {
+  width: min(900px, 94%);
+  margin: 30px auto;
 }
-.memory-title { font-size: 23px; font-weight: 500; margin: 17px 0 7px; }
-.memory-date { font-size: 11px; color: var(--muted); }
-.memory-description {
-  white-space: pre-wrap; overflow-wrap: anywhere;
-  font-size: 13px; line-height: 1.9; color: #c5c9dc; margin: 20px 0;
+.memory-card {
+  background: #17142be8;
+  border: 1px solid #373054;
+  border-radius: 14px;
+  padding: 16px;
+  margin: 12px 0;
+  overflow-wrap: anywhere;
 }
-.actions { display: flex; gap: 8px; flex-wrap: wrap; }
-.actions button { font-size: 11px; }
-.delete { color: #ffabbc; }
-.bottom { margin-top: 20px; padding: 20px; }
-.bottom h3 { margin: 0 0 15px; font-size: 12px; letter-spacing: 1px; }
-.categories { display: flex; gap: 8px; flex-wrap: wrap; }
-.category { font-size: 11px; border-radius: 20px; }
-.category.active { background: #393050; border-color: #b9a7ff; }
-footer { text-align: center; color: #626c89; padding: 25px; font-size: 11px; }
+.memory-card h3 { margin: 0 0 8px; color: #d6c5ff; }
+.meta { color: var(--muted); font-size: 13px; }
+.memory-photo {
+  display: block;
+  width: 100%;
+  max-height: 360px;
+  object-fit: contain;
+  margin-top: 12px;
+  border-radius: 10px;
+  background: #0b0918;
+}
+.card-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
 dialog {
-  width: min(440px, calc(100% - 28px));
-  border: 1px solid var(--border);
-  border-radius: 17px;
-  padding: 0;
+  width: min(520px, 94%);
+  max-height: 90vh;
+  overflow: auto;
+  border: 1px solid #64538e;
+  border-radius: 16px;
   color: var(--text);
   background: var(--panel);
+  padding: 22px;
 }
-dialog::backdrop { background: #02030bd9; backdrop-filter: blur(5px); }
-.modal-head { padding: 20px 22px; border-bottom: 1px solid var(--border); }
-.modal-head h3 { margin: 0; font-size: 16px; }
-form { padding: 22px; display: grid; gap: 15px; }
-label { font-size: 11px; color: #bfc5de; display: grid; gap: 7px; }
+dialog::backdrop { background: #03020bd9; }
+dialog h2 { color: #d6c5ff; margin-top: 0; }
+label { display: block; margin-top: 13px; color: #d8d0f2; }
 input, textarea, select {
-  background: #090e20; border: 1px solid var(--border);
-  color: var(--text); border-radius: 9px; padding: 11px; width: 100%;
+  display: block;
+  width: 100%;
+  margin-top: 6px;
+  padding: 10px;
+  border: 1px solid #494064;
+  border-radius: 8px;
+  background: #0e0b1d;
+  color: var(--text);
 }
-textarea { resize: vertical; min-height: 100px; }
-.form-actions { display: flex; justify-content: flex-end; gap: 9px; }
-.hint { font-size: 11px; color: var(--muted); line-height: 1.6; }
-@media (max-width: 760px) {
-  header { padding: 20px 5%; }
-  main { padding: 25px 4%; }
-  .workspace { grid-template-columns: 1fr; }
-  .sky { height: 390px; }
+textarea { min-height: 110px; resize: vertical; }
+.form-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+.hint { color: var(--muted); font-size: 12px; line-height: 1.5; }
+footer {
+  text-align: center;
+  padding: 25px;
+  color: var(--muted);
+  font-size: 12px;
 }
 </style>
 </head>
 <body>
+
 <header>
-  <div class="brand">
-    <span class="logo">✳</span>
-    <div>
-      <h1>MEMORY CONSTELLATION</h1>
-      <div class="subtitle">a universe of memoriws</div>
-    </div>
+  <h1>✦ Memory Constellation ✦</h1>
+  <p>A little universe made of memories.</p>
+  <div class="top-actions">
+    <button id="addBtn" hidden>＋ Add a memory</button>
+    <button id="loginBtn">Owner sign in</button>
+    <button id="logoutBtn" hidden>Sign out</button>
   </div>
-  <button class="primary" id="addTop">+ add</button>
+  <div id="status">Connecting to the stars...</div>
 </header>
 
 <main>
-  <section class="intro">
-    <div class="eyebrow">trial</div>
-    <h2>Every star has a story.</h2>
-    <p>Little moments, important people, and versions of yourself.<br>
-       Somewhere in this universe, they all belong:)</p>
+  <section id="sky" aria-label="Memory star map">
+    <div class="empty">Loading memories...</div>
   </section>
-
-  <div class="workspace">
-    <section class="panel">
-      <div class="panel-head">
-        <h3>YOUR NIGHT SKY</h3>
-        <span class="count" id="count">0 memories</span>
-      </div>
-      <div class="sky" id="sky">
-        <svg id="lines" aria-hidden="true"></svg>
-        <div class="sky-note">Select a star to discover its story</div>
-      </div>
-    </section>
-
-    <section class="panel">
-      <div class="panel-head">
-        <h3>MEMORY NOTES</h3>
-        <span class="count">✧</span>
-      </div>
-      <div class="detail" id="detail">
-        <div class="detail-empty">
-          <div class="memory-symbol">✧</div>
-          <h3>A little universe of your own.</h3>
-          Choose a star in the sky to see what's written there.
-          <br><br>
-          Your memories don't need to be extraordinary to matter.
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <section class="panel bottom">
-    <h3>EXPLORE YOUR CONSTELLATIONS</h3>
-    <div class="categories" id="categories"></div>
-  </section>
+  <section id="memory-list"></section>
 </main>
 
-<footer>Made of moments, connected by meaning. ✦</footer>
+<footer>Every star holds a story ✦</footer>
 
-<dialog id="editor">
-  <div class="modal-head"><h3 id="formTitle">A new memory</h3></div>
-  <form id="memoryForm">
-    <input type="hidden" id="memoryId">
-    <label>Memory title
-      <input id="title" maxlength="90" placeholder="A day I'll remember..." required>
+<dialog id="loginDialog">
+  <h2>Owner sign in</h2>
+  <form id="loginForm">
+    <label>Email
+      <input id="email" type="email" autocomplete="username" required>
     </label>
-    <label>Date
-      <input id="date" type="date">
+    <label>Password
+      <input id="password" type="password" autocomplete="current-password" required>
     </label>
-    <label>Constellation
-      <select id="category">
-        <option>People</option>
-        <option>Growing</option>
-        <option>Happy moments</option>
-        <option>Achievements</option>
-        <option>Dreams</option>
-        <option>Other</option>
-      </select>
-    </label>
-    <label>Your story
-      <textarea id="description" maxlength="3000"
-        placeholder="What do you want to remember about this?"></textarea>
-    </label>
-    <div class="hint">Memories are saved in this browser on this device.</div>
+    <p class="hint">Sign in with the account you created in Firebase Authentication. Never share your password.</p>
     <div class="form-actions">
-      <button type="button" id="cancel">Cancel</button>
-      <button class="primary" type="submit">Save memory</button>
+      <button type="submit">Sign in</button>
+      <button type="button" data-close="loginDialog">Cancel</button>
     </div>
   </form>
 </dialog>
 
-<script>
-const STORAGE = "memory-constellation-v1";
-const categories = [
-  "All", "People", "Growing", "Happy moments",
-  "Achievements", "Dreams", "Other"
-];
-const colors = {
-  "People": "#f6c9df",
-  "Growing": "#a9c7ff",
-  "Happy moments": "#ffe4a1",
-  "Achievements": "#a8f0d1",
-  "Dreams": "#c5b2ff",
-  "Other": "#c7d2fe"
+<dialog id="editDialog">
+  <h2 id="editHeading">Add a memory</h2>
+  <form id="memoryForm">
+    <input id="memoryId" type="hidden">
+    <label>Title
+      <input id="title" maxlength="100" required>
+    </label>
+    <label>Date
+      <input id="date" type="date">
+    </label>
+    <label>Category
+      <select id="category">
+        <option>Personal</option>
+        <option>Friends</option>
+        <option>Family</option>
+        <option>School</option>
+        <option>Milestone</option>
+        <option>Other</option>
+      </select>
+    </label>
+    <label>Description
+      <textarea id="description" maxlength="5000" placeholder="Write down this memory..."></textarea>
+    </label>
+    <label>Photo (optional)
+      <input id="photoFile" type="file" accept="image/jpeg,image/png,image/webp">
+    </label>
+    <p class="hint">Photos are resized and compressed in your browser before saving. Keep them small. Upload only images you have permission to share.</p>
+    <label>
+      <input id="removePhoto" type="checkbox" style="display:inline;width:auto">
+      Remove the existing photo
+    </label>
+    <div class="form-actions">
+      <button id="saveBtn" type="submit">Save memory</button>
+      <button type="button" data-close="editDialog">Cancel</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="viewDialog">
+  <h2 id="viewTitle"></h2>
+  <div id="viewMeta" class="meta"></div>
+  <img id="viewPhoto" class="memory-photo" alt="Memory photo" hidden>
+  <p id="viewDescription" style="white-space:pre-wrap;overflow-wrap:anywhere"></p>
+  <div class="form-actions">
+    <button id="viewEditBtn" hidden>Edit</button>
+    <button id="viewDeleteBtn" hidden>Delete</button>
+    <button type="button" data-close="viewDialog">Close</button>
+  </div>
+</dialog>
+
+<script type="module">
+import { initializeApp } from
+  "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-auth.js";
+import {
+  getDatabase, ref, onValue, set, remove
+} from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCiqEXbH9xyfO7KBHo408WUFODmfnyqqtk",
+  authDomain: "memory-constellation-803d6.firebaseapp.com",
+  databaseURL: "https://memory-constellation-803d6-default-rtdb.firebaseio.com",
+  projectId: "memory-constellation-803d6",
+  storageBucket: "memory-constellation-803d6.firebasestorage.app",
+  messagingSenderId: "451406950978",
+  appId: "1:451406950978:web:223e29e52f12e0231173db",
+  measurementId: "G-D3Y3VFG9CB"
 };
 
-const samples = [
-  {
-    id: "sample1", title: "The people who stayed",
-    date: "2026-01-01", category: "People",
-    description: "Some people make ordinary days feel important. Remember the ones who made you feel understood.",
-    x: 24, y: 34
-  },
-  {
-    id: "sample2", title: "A little progress",
-    date: "2026-02-14", category: "Growing",
-    description: "You don't have to have everything figured out. Getting through a difficult day counts, too.",
-    x: 47, y: 24
-  },
-  {
-    id: "sample3", title: "An ordinary good day",
-    date: "2026-03-08", category: "Happy moments",
-    description: "The kind of day you wish you could keep in a little bottle. Nothing extraordinary, just good.",
-    x: 69, y: 40
-  },
-  {
-    id: "sample4", title: "Something to work toward",
-    date: "2026-04-12", category: "Dreams",
-    description: "A reminder of the things you want to try, learn, build, and experience.",
-    x: 38, y: 64
-  },
-  {
-    id: "sample5", title: "I did it",
-    date: "2026-05-20", category: "Achievements",
-    description: "Keep a record of the moments when you surprised yourself.",
-    x: 76, y: 72
-  }
-];
+// This UID must match the owner UID in your Firebase Database rules.
+const OWNER_UID = "q7mXvE6tt3XTRNjwy0LEicZP8P62";
 
-let memories;
-try {
-  const saved = localStorage.getItem(STORAGE);
-  memories = saved ? JSON.parse(saved) : samples.map(m => ({...m}));
-  if (!Array.isArray(memories)) memories = samples.map(m => ({...m}));
-} catch {
-  memories = samples.map(m => ({...m}));
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getDatabase(app);
+const memoriesRef = ref(db, "memories");
+
+const $ = id => document.getElementById(id);
+const sky = $("sky");
+const list = $("memory-list");
+let memories = [];
+let currentUser = null;
+let selectedMemory = null;
+let pendingPhoto = null;
+
+function isOwner() {
+  return !!currentUser && currentUser.uid === OWNER_UID;
 }
 
-let selectedId = null;
-let activeCategory = "All";
-
-const sky = document.getElementById("sky");
-const lines = document.getElementById("lines");
-const detail = document.getElementById("detail");
-const editor = document.getElementById("editor");
-const form = document.getElementById("memoryForm");
-
-function save() {
-  try {
-    localStorage.setItem(STORAGE, JSON.stringify(memories));
-  } catch {
-    alert("Your browser couldn't save this memory. Check your browser storage settings.");
-  }
+function setStatus(message) {
+  $("status").textContent = message;
 }
 
-function escapeHTML(value = "") {
-  return String(value).replace(/[&<>"']/g, c => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;",
-    '"': "&quot;", "'": "&#39;"
-  }[c]));
+function safeText(tag, text, className = "") {
+  const el = document.createElement(tag);
+  el.textContent = text || "";
+  if (className) el.className = className;
+  return el;
 }
 
-function visibleMemories() {
-  return memories.filter(m =>
-    activeCategory === "All" || m.category === activeCategory
-  );
+function makeButton(text, callback) {
+  const button = document.createElement("button");
+  button.textContent = text;
+  button.addEventListener("click", callback);
+  return button;
 }
 
-function render() {
-  sky.querySelectorAll(".star").forEach(el => el.remove());
-  lines.innerHTML = "";
-  const visible = visibleMemories();
-  document.getElementById("count").textContent =
-    `${memories.length} ${memories.length === 1 ? "memory" : "memories"}`;
-
-  const byCategory = {};
-  visible.forEach(m => {
-    if (!byCategory[m.category]) byCategory[m.category] = [];
-    byCategory[m.category].push(m);
-  });
-
-  // Connect memories in the same constellation.
-  Object.values(byCategory).forEach(group => {
-    group.sort((a, b) => a.x - b.x);
-    for (let i = 0; i < group.length - 1; i++) {
-      const a = group[i], b = group[i + 1];
-      const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-      line.setAttribute("x1", a.x + "%");
-      line.setAttribute("y1", a.y + "%");
-      line.setAttribute("x2", b.x + "%");
-      line.setAttribute("y2", b.y + "%");
-      line.setAttribute("class", "link");
-      lines.appendChild(line);
-    }
-  });
-
-  visible.forEach(m => {
-    const star = document.createElement("button");
-    star.className = "star" + (m.id === selectedId ? " selected" : "");
-    star.style.left = m.x + "%";
-    star.style.top = m.y + "%";
-    star.style.setProperty("--color", colors[m.category] || colors.Other);
-    star.style.setProperty("--size", m.id === selectedId ? "11px" : "8px");
-    star.setAttribute("aria-label", "View memory: " + m.title);
-    star.innerHTML = `<span class="star-label">${escapeHTML(m.title)}</span>`;
-    star.addEventListener("click", () => {
-      selectedId = m.id;
-      render();
-      renderDetail();
-    });
-    sky.appendChild(star);
-  });
-
-  renderCategories();
-  if (selectedId && !visible.some(m => m.id === selectedId)) {
-    selectedId = null;
-    renderDetail();
-  }
-}
-
-function renderCategories() {
-  const holder = document.getElementById("categories");
-  holder.innerHTML = "";
-  categories.forEach(category => {
-    const button = document.createElement("button");
-    button.className = "category" + (activeCategory === category ? " active" : "");
-    button.textContent = category;
-    button.addEventListener("click", () => {
-      activeCategory = category;
-      render();
-    });
-    holder.appendChild(button);
-  });
-}
-
-function renderDetail() {
-  const m = memories.find(item => item.id === selectedId);
-  if (!m) {
-    detail.innerHTML = `<div class="detail-empty">
-      <div class="memory-symbol">✧</div>
-      <h3>A little universe of your own.</h3>
-      Choose a star to discover its story.
-      <br><br>Your memories don't need to be extraordinary to matter.
-    </div>`;
+function openEditor(memory = null) {
+  if (!isOwner()) {
+    setStatus("Sign in with the owner account to edit memories.");
     return;
   }
 
-  detail.innerHTML = `
-    <div class="memory-symbol">✦</div>
-    <span class="tag">${escapeHTML(m.category)}</span>
-    <h2 class="memory-title">${escapeHTML(m.title)}</h2>
-    <div class="memory-date">${escapeHTML(m.date || "A moment in time")}</div>
-    <div class="memory-description">${escapeHTML(m.description || "No story added yet.")}</div>
-    <div class="actions">
-      <button id="editMemory">Edit memory</button>
-      <button id="deleteMemory" class="delete">Delete</button>
-    </div>`;
+  $("memoryForm").reset();
+  pendingPhoto = null;
+  $("memoryId").value = memory?.id || "";
+  $("editHeading").textContent = memory ? "Edit memory" : "Add a memory";
+  $("title").value = memory?.title || "";
+  $("date").value = memory?.date || "";
+  $("category").value = memory?.category || "Personal";
+  $("description").value = memory?.description || "";
+  $("removePhoto").checked = false;
+  $("photoFile").value = "";
+  $("editDialog").showModal();
+}
 
-  document.getElementById("editMemory").addEventListener("click", () => openEditor(m));
-  document.getElementById("deleteMemory").addEventListener("click", () => {
-    if (!confirm("Delete this memory? This cannot be undone.")) return;
-    memories = memories.filter(item => item.id !== m.id);
-    selectedId = null;
-    save();
-    render();
-    renderDetail();
+function showMemory(memory) {
+  selectedMemory = memory;
+  $("viewTitle").textContent = memory.title || "Untitled memory";
+  $("viewMeta").textContent =
+    [memory.date, memory.category].filter(Boolean).join(" · ");
+  $("viewDescription").textContent = memory.description || "";
+  $("viewPhoto").hidden = !memory.photo;
+  if (memory.photo) $("viewPhoto").src = memory.photo;
+
+  $("viewEditBtn").hidden = !isOwner();
+  $("viewDeleteBtn").hidden = !isOwner();
+  $("viewDialog").showModal();
+}
+
+function render() {
+  sky.replaceChildren();
+  list.replaceChildren();
+
+  if (!memories.length) {
+    const empty = document.createElement("div");
+    empty.className = "empty";
+    empty.textContent = isOwner()
+      ? "Your constellation is waiting. Add your first memory ✦"
+      : "No shared memories yet.";
+    sky.append(empty);
+    return;
+  }
+
+  memories.forEach((memory, index) => {
+    // Use saved positions when available; otherwise place stars in a pattern.
+    const x = Number.isFinite(memory.x) ? memory.x : 10 + ((index * 29) % 80);
+    const y = Number.isFinite(memory.y) ? memory.y : 12 + ((index * 37) % 76);
+
+    const star = document.createElement("button");
+    star.className = "star";
+    star.style.left = `${Math.min(94, Math.max(6, x))}%`;
+    star.style.top = `${Math.min(92, Math.max(8, y))}%`;
+    star.setAttribute("aria-label", `Open memory: ${memory.title || "Untitled"}`);
+    star.title = memory.title || "Untitled memory";
+    star.addEventListener("click", () => showMemory(memory));
+    sky.append(star);
+
+    const label = document.createElement("span");
+    label.className = "star-label";
+    label.style.left = star.style.left;
+    label.style.top = star.style.top;
+    label.textContent = memory.title || "Untitled";
+    sky.append(label);
+
+    const card = document.createElement("article");
+    card.className = "memory-card";
+    card.append(safeText("h3", memory.title || "Untitled memory"));
+    card.append(safeText("div",
+      [memory.date, memory.category].filter(Boolean).join(" · "), "meta"));
+    if (memory.description) card.append(safeText("p", memory.description));
+
+    if (memory.photo) {
+      const img = document.createElement("img");
+      img.className = "memory-photo";
+      img.alt = "Photo attached to this memory";
+      img.loading = "lazy";
+      img.src = memory.photo;
+      card.append(img);
+    }
+
+    card.append(makeButton("View", () => showMemory(memory)));
+
+    if (isOwner()) {
+      const actions = document.createElement("div");
+      actions.className = "card-actions";
+      actions.append(makeButton("Edit", () => openEditor(memory)));
+      actions.append(makeButton("Delete", () => deleteMemory(memory)));
+      card.append(actions);
+    }
+
+    list.append(card);
   });
 }
 
-function openEditor(m = null) {
-  form.reset();
-  document.getElementById("memoryId").value = m?.id || "";
-  document.getElementById("formTitle").textContent =
-    m ? "Edit your memory" : "A new memory";
-  document.getElementById("title").value = m?.title || "";
-  document.getElementById("date").value = m?.date || new Date().toISOString().slice(0, 10);
-  document.getElementById("category").value = m?.category || "People";
-  document.getElementById("description").value = m?.description || "";
-  editor.showModal();
+async function compressImage(file) {
+  if (!file.type.startsWith("image/")) {
+    throw new Error("Choose a valid image file.");
+  }
+
+  const bitmap = await createImageBitmap(file);
+  const canvas = document.createElement("canvas");
+  const maxDimension = 800;
+  const scale = Math.min(1, maxDimension / Math.max(bitmap.width, bitmap.height));
+
+  canvas.width = Math.max(1, Math.round(bitmap.width * scale));
+  canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+  bitmap.close();
+
+  let result = canvas.toDataURL("image/jpeg", 0.68);
+  if (result.length > 450000) {
+    result = canvas.toDataURL("image/jpeg", 0.45);
+  }
+  if (result.length > 520000) {
+    throw new Error("This photo is still too large. Try a smaller image.");
+  }
+  return result;
 }
 
-document.getElementById("addTop").addEventListener("click", () => openEditor());
-document.getElementById("cancel").addEventListener("click", () => editor.close());
+$("photoFile").addEventListener("change", async event => {
+  const file = event.target.files?.[0];
+  pendingPhoto = null;
+  if (!file) return;
 
-form.addEventListener("submit", event => {
-  event.preventDefault();
-  const id = document.getElementById("memoryId").value;
-  const old = memories.find(m => m.id === id);
-  const memory = {
-    id: id || (crypto.randomUUID ? crypto.randomUUID() : String(Date.now())),
-    title: document.getElementById("title").value.trim(),
-    date: document.getElementById("date").value,
-    category: document.getElementById("category").value,
-    description: document.getElementById("description").value.trim(),
-    x: old?.x ?? (12 + Math.random() * 76),
-    y: old?.y ?? (14 + Math.random() * 70)
-  };
-
-  if (!memory.title) return;
-  if (id) memories = memories.map(m => m.id === id ? memory : m);
-  else memories.push(memory);
-
-  selectedId = memory.id;
-  activeCategory = "All";
-  save();
-  editor.close();
-  render();
-  renderDetail();
+  try {
+    setStatus("Compressing photo...");
+    pendingPhoto = await compressImage(file);
+    setStatus("Photo ready. Save the memory to upload it.");
+  } catch (error) {
+    event.target.value = "";
+    setStatus(error.message || "Could not process that photo.");
+  }
 });
 
-render();
-renderDetail();
+$("memoryForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!isOwner()) return setStatus("Only the owner can save memories.");
+
+  const saveButton = $("saveBtn");
+  saveButton.disabled = true;
+
+  try {
+    const id = $("memoryId").value || crypto.randomUUID();
+    const old = memories.find(m => m.id === id);
+    const photo = $("removePhoto").checked
+      ? null
+      : (pendingPhoto || old?.photo || null);
+
+    const memory = {
+      id,
+      title: $("title").value.trim(),
+      date: $("date").value,
+      category: $("category").value,
+      description: $("description").value.trim(),
+      x: old?.x ?? (10 + Math.random() * 80),
+      y: old?.y ?? (10 + Math.random() * 80),
+      photo
+    };
+
+    if (!memory.title) throw new Error("Please enter a title.");
+
+    await set(ref(db, `memories/${id}`), memory);
+    $("editDialog").close();
+    setStatus("Memory saved ✦");
+  } catch (error) {
+    console.error(error);
+    setStatus("Could not save. Check your connection and Firebase rules.");
+    alert(error.message || "Could not save the memory.");
+  } finally {
+    saveButton.disabled = false;
+  }
+});
+
+async function deleteMemory(memory) {
+  if (!isOwner()) return;
+  if (!confirm(`Delete "${memory.title}"? This cannot be undone.`)) return;
+
+  try {
+    await remove(ref(db, `memories/${memory.id}`));
+    $("viewDialog").close();
+    setStatus("Memory deleted.");
+  } catch (error) {
+    console.error(error);
+    setStatus("Could not delete. Check your Firebase rules.");
+  }
+}
+
+$("viewEditBtn").addEventListener("click", () => {
+  $("viewDialog").close();
+  if (selectedMemory) openEditor(selectedMemory);
+});
+
+$("viewDeleteBtn").addEventListener("click", () => {
+  if (selectedMemory) deleteMemory(selectedMemory);
+});
+
+$("addBtn").addEventListener("click", () => openEditor());
+$("loginBtn").addEventListener("click", () => $("loginDialog").showModal());
+
+$("loginForm").addEventListener("submit", async event => {
+  event.preventDefault();
+  try {
+    await signInWithEmailAndPassword(auth, $("email").value, $("password").value);
+    $("loginDialog").close();
+    $("password").value = "";
+  } catch (error) {
+    console.error(error);
+    alert("Sign-in failed. Check your email and password, and make sure Email/Password sign-in is enabled in Firebase.");
+  }
+});
+
+$("logoutBtn").addEventListener("click", async () => {
+  await signOut(auth);
+});
+
+document.querySelectorAll("[data-close]").forEach(button => {
+  button.addEventListener("click", () => {
+    $(button.dataset.close).close();
+  });
+});
+
+onAuthStateChanged(auth, user => {
+  currentUser = user;
+
+  if (isOwner()) {
+    $("addBtn").hidden = false;
+    $("loginBtn").hidden = true;
+    $("logoutBtn").hidden = false;
+    setStatus("Signed in as owner. Your memories sync with Firebase.");
+  } else {
+    $("addBtn").hidden = true;
+    $("loginBtn").hidden = false;
+    $("logoutBtn").hidden = true;
+    setStatus("Viewing shared memories.");
+  }
+
+  render();
+});
+
+onValue(memoriesRef, snapshot => {
+  const data = snapshot.val() || {};
+  memories = Object.values(data)
+    .filter(item => item && typeof item === "object" && item.id)
+    .sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+
+  render();
+  if (!memories.length) {
+    setStatus(isOwner()
+      ? "Connected. Add your first memory."
+      : "Connected. No shared memories yet.");
+  }
+}, error => {
+  console.error(error);
+  setStatus("Could not load memories. Check your Firebase Database rules.");
+});
 </script>
 </body>
 </html>
